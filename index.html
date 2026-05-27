@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>진용성 — AI 활용 교육 강사 · AX 컨설턴트 / Portfolio</title>
+<meta name="description" content="진용성(AI BRIDGE 대표)의 AI 활용 교육 강사 · AX 컨설턴트 포트폴리오. Claude·ChatGPT 실무 교육, 기업 AX 컨설팅, 자동화 프로젝트 사례를 소개합니다." />
+
+<!-- ============================================================
+  진용성 (JIN YONGSUNG) — Portfolio
+  Single-file HTML · Tailwind CDN + Google Fonts
+  Reuses AI BRIDGE design system: ink + paper + electric blue accent.
+
+  Sections:
+    01. Nav
+    02. Hero (프로필 + 핵심 카피)
+    03. About (자기 소개 / 커리어 타임라인)
+    04. Expertise (AI 활용 전문 분야)
+    05. Lectures (기업 강의 이력)
+    06. Projects (3개 사례)
+    07. Channel (유튜브)
+    08. Contact / Footer (이메일 only)
+
+  Replace later:
+    · 프로필 사진 → assets/profile-jinyongsung.jpg
+    · 로고      → assets/aibridge-logo*.png
+============================================================ -->
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:    { DEFAULT: '#0B0B0E', 800: '#1A1A1F', 700: '#26262C' },
+          paper:  '#FAF9F5',
+          mist:   '#F1EFE7',
+          line:   '#E5E2D6',
+          muted:  '#6B6B66',
+          accent: { DEFAULT: '#2547F0', soft: '#E8EBFF', deep: '#1A33B5' },
+        },
+        fontFamily: {
+          sans:    ['Pretendard','Inter','ui-sans-serif','system-ui','sans-serif'],
+          display: ['Pretendard','Inter','sans-serif'],
+          mono:    ['"JetBrains Mono"','ui-monospace','SFMono-Regular','monospace'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root{
+    --ink: #0B0B0E;
+    --ink-2: #1A1A1F;
+    --paper: #FAF9F5;
+    --mist: #F1EFE7;
+    --line: #E5E2D6;
+    --muted: #6B6B66;
+    --accent: #2547F0;
+    --accent-soft: #E8EBFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Pretendard','Inter',ui-sans-serif,system-ui,sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .font-num  { font-family: 'Inter','Pretendard',sans-serif; font-feature-settings: "tnum"; }
+  .font-mono { font-family: 'JetBrains Mono','ui-monospace',monospace; }
+
+  .section { padding-block: clamp(80px, 9vw, 140px); }
+
+  .display { font-weight: 800; letter-spacing: -0.025em; line-height: 0.96; }
+
+  .bg-grid-dark {
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .bg-grid-light {
+    background-image:
+      linear-gradient(rgba(11,11,14,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11,11,14,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Reveal-on-scroll */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: .08s; }
+  .reveal-d2 { transition-delay: .16s; }
+  .reveal-d3 { transition-delay: .24s; }
+  .reveal-d4 { transition-delay: .32s; }
+  .reveal-d5 { transition-delay: .40s; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal { opacity:1; transform:none; transition:none; }
+  }
+
+  .nav-glass {
+    background: rgba(11,11,14,.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+
+  @keyframes nudge { 0%,100%{transform: translateY(0);opacity:.55} 50%{transform: translateY(6px);opacity:1} }
+  .scroll-cue { animation: nudge 2.2s ease-in-out infinite; }
+
+  @keyframes marq {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marq-track { animation: marq 38s linear infinite; }
+
+  /* Avatar frame */
+  .avatar-frame {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .avatar-frame::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    pointer-events: none;
+  }
+
+  /* Browser frame for project preview */
+  .browser {
+    background: #0F0F14;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .browser .bar {
+    display: flex; align-items: center; gap: 8px;
+    height: 32px; padding: 0 12px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .browser .dot { width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,.16); }
+  .browser .url {
+    flex: 1; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .04em;
+    color: rgba(255,255,255,.45);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+</style>
+</head>
+
+<body class="bg-paper text-ink">
+
+<!-- =====================================================================
+  01. NAVIGATION
+===================================================================== -->
+<header class="fixed top-0 inset-x-0 z-50 nav-glass">
+  <nav aria-label="주 메뉴" class="max-w-[1280px] mx-auto px-6 lg:px-10 h-[68px] flex items-center justify-between text-white">
+    <a href="#home" aria-label="진용성 포트폴리오 홈" class="flex items-center gap-3">
+      <span class="font-extrabold tracking-tight text-[16px]">진용성</span>
+      <span class="hidden sm:inline font-mono text-[11px] tracking-[.2em] uppercase text-white/45">/ Portfolio</span>
+    </a>
+    <ul class="hidden md:flex items-center gap-7 text-[14px] font-medium text-white/85">
+      <li><a href="#about"      class="hover:text-white transition-colors">소개</a></li>
+      <li><a href="#expertise"  class="hover:text-white transition-colors">전문 분야</a></li>
+      <li><a href="#lectures"   class="hover:text-white transition-colors">강의</a></li>
+      <li><a href="#projects"   class="hover:text-white transition-colors">프로젝트</a></li>
+      <li><a href="#channel"    class="hover:text-white transition-colors">채널</a></li>
+      <li><a href="#contact"    class="hover:text-white transition-colors">연락처</a></li>
+    </ul>
+    <div class="hidden md:flex items-center gap-2 text-[12.5px] text-white/55 font-mono">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent"></span>
+      <span>leo.jin@aibridge.co.kr</span>
+    </div>
+  </nav>
+</header>
+
+
+<!-- =====================================================================
+  02. HERO
+===================================================================== -->
+<section id="home" data-screen-label="01 Hero" class="relative bg-ink text-white overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-50 [mask-image:radial-gradient(ellipse_at_70%_30%,#000_30%,transparent_75%)]"></div>
+  <div aria-hidden="true" class="absolute -top-40 -right-40 w-[720px] h-[720px] rounded-full blur-3xl opacity-30"
+       style="background:radial-gradient(closest-side, rgba(37,71,240,.6), transparent 70%);"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10 pt-[140px] pb-[110px] lg:pt-[170px] lg:pb-[130px]">
+
+    <!-- Meta strip -->
+    <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-white/55">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent"></span>
+      Portfolio · 진용성 (Jin Yongsung)
+      <span class="hidden sm:inline text-white/30">/</span>
+      <span class="hidden sm:inline">AI BRIDGE Founder</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end mt-8">
+      <!-- Headline + role -->
+      <div class="lg:col-span-8">
+        <h1 class="reveal reveal-d1 display text-[clamp(44px,7vw,112px)]">
+          AI를 일에<br/>
+          <span class="text-accent">쓰는 방법</span>을<br/>
+          가르칩니다.
+        </h1>
+        <p class="reveal reveal-d2 mt-9 max-w-2xl text-[17px] leading-[1.85] text-white/75">
+          기업과 협회·기관의 실무자들이 AI를 진짜로 사용할 수 있도록 돕는
+          <span class="text-white font-semibold">AI 활용 교육 강사 · AX 컨설턴트</span>.
+          9년의 사업기획 · 운영 현장 경험 위에 Claude · ChatGPT를 얹어
+          업무 그 자체가 바뀌는 순간을 만듭니다.
+        </p>
+
+        <!-- Email-only contact, no submit button -->
+        <div class="reveal reveal-d3 mt-11 flex flex-wrap items-end gap-x-12 gap-y-6">
+          <div>
+            <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Contact</div>
+            <div class="mt-2 font-mono text-[20px] sm:text-[22px] font-semibold text-white tracking-tight">leo.jin@aibridge.co.kr</div>
+          </div>
+          <div class="hidden sm:block h-10 w-px bg-white/15"></div>
+          <div>
+            <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Inquiry</div>
+            <div class="mt-2 text-[14px] text-white/75">강의·컨설팅 의뢰는 이메일로만 받습니다 · 1영업일 이내 회신</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Profile photo + role badge -->
+      <div class="lg:col-span-4 relative">
+        <div class="reveal reveal-d2 avatar-frame aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 bg-white/5">
+          <!-- Profile photo (B&W portrait, head + shoulders) -->
+          <img src="assets/profile_photo.jpg"
+               alt="진용성 (Jin Yongsung) — AI 활용 교육 강사"
+               class="w-full h-full object-cover object-[center_15%]" />
+          <!-- Floating badge -->
+          <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 bg-ink/70 backdrop-blur px-2.5 py-1 rounded-full text-[11px] font-mono tracking-[.2em] uppercase text-white/85 border border-white/10">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>Founder · AI BRIDGE
+          </div>
+        </div>
+
+        <!-- Identity card overlay -->
+        <div class="reveal reveal-d3 -mt-6 lg:mt-6 lg:translate-x-[-12%] lg:translate-y-[-32px] relative max-w-[300px] mx-auto lg:mx-0 bg-white text-ink rounded-2xl p-5 border border-line">
+          <div class="font-mono text-[10.5px] tracking-[.22em] uppercase text-muted">Name</div>
+          <div class="mt-1 text-[18px] font-bold tracking-tight">진용성 <span class="text-muted font-normal text-[14px]">· Jin Yongsung</span></div>
+          <div class="mt-3 font-mono text-[10.5px] tracking-[.22em] uppercase text-muted">Role</div>
+          <div class="mt-1 text-[14px] font-semibold leading-snug">AI 활용 교육 강사<br/>AX 컨설턴트</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI strip -->
+    <dl class="reveal reveal-d5 mt-20 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8 border-t border-white/10 pt-10">
+      <div>
+        <dt class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Career</dt>
+        <dd class="mt-2 font-num text-[34px] font-extrabold tracking-tight">9<span class="text-accent">+</span><span class="text-[18px] text-white/55 align-baseline ml-1.5">Years</span></dd>
+      </div>
+      <div>
+        <dt class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Corporate Lectures</dt>
+        <dd class="mt-2 font-num text-[34px] font-extrabold tracking-tight">10<span class="text-accent">+</span><span class="text-[18px] text-white/55 align-baseline ml-1.5">Sessions</span></dd>
+      </div>
+      <div>
+        <dt class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">YouTube Subs</dt>
+        <dd class="mt-2 font-num text-[34px] font-extrabold tracking-tight">7,100<span class="text-accent">+</span></dd>
+      </div>
+      <div>
+        <dt class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Specialty</dt>
+        <dd class="mt-2 text-[18px] font-semibold tracking-tight leading-tight">Claude · ChatGPT<br/>실무 활용 교육</dd>
+      </div>
+    </dl>
+  </div>
+
+  <!-- Marquee -->
+  <div aria-hidden="true" class="relative border-t border-white/10 overflow-hidden text-white/45">
+    <div class="marq-track flex gap-12 py-4 whitespace-nowrap text-[13px] font-mono tracking-[.22em] uppercase w-max">
+      <span>Claude</span><span>·</span><span>ChatGPT</span><span>·</span><span>AI Agent</span><span>·</span><span>AX Consulting</span><span>·</span><span>Workflow Automation</span><span>·</span><span>Corporate Training</span><span>·</span>
+      <span>Claude</span><span>·</span><span>ChatGPT</span><span>·</span><span>AI Agent</span><span>·</span><span>AX Consulting</span><span>·</span><span>Workflow Automation</span><span>·</span><span>Corporate Training</span><span>·</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  03. ABOUT
+===================================================================== -->
+<section id="about" data-screen-label="02 About" class="section bg-paper">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-5">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-muted">
+          <span class="inline-block w-8 h-px bg-ink"></span>
+          01 — About
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(34px,4.4vw,56px)]">
+          현장을 아는<br/>
+          <span class="text-accent">사업가</span>가<br/>
+          AI를 가르칩니다.
+        </h2>
+        <p class="reveal reveal-d2 mt-7 text-[16.5px] leading-[1.85] text-ink/80 max-w-md">
+          기획자, 운영자, 마케터로 9년을 일했습니다.
+          "어디서부터 시작해야 할지 모르겠다"는
+          현장의 진짜 막막함을 알기 때문에
+          쓸 수 있는 만큼만, 깊이 있게 가르칩니다.
+        </p>
+      </div>
+
+      <!-- Right: profile card -->
+      <div class="lg:col-span-7">
+        <div class="reveal reveal-d1 bg-white border border-line rounded-3xl p-8 sm:p-10">
+          <div class="flex items-center justify-between">
+            <div class="text-[18px] font-bold tracking-tight">진용성 <span class="text-muted font-normal text-[14px]">· 1990</span></div>
+            <span class="font-mono text-[11px] tracking-[.22em] uppercase text-muted">Profile</span>
+          </div>
+
+          <dl class="mt-8 grid sm:grid-cols-2 gap-x-10 gap-y-7 text-[14.5px]">
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">소속</dt>
+              <dd class="mt-1.5 text-[16px] font-semibold">AI BRIDGE <span class="text-muted font-normal">· Founder</span></dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">직무</dt>
+              <dd class="mt-1.5 text-[16px] font-semibold">AI 활용 교육 강사 · AX 컨설턴트</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">경력</dt>
+              <dd class="mt-1.5 text-[16px] font-semibold">대기업 사업기획 4년 + 스타트업 5년</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">학력</dt>
+              <dd class="mt-1.5 text-[16px] font-semibold">학사</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">이메일</dt>
+              <dd class="mt-1.5 font-mono text-[15px] font-semibold text-accent">leo.jin@aibridge.co.kr</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[11px] tracking-[.18em] uppercase text-muted">유튜브</dt>
+              <dd class="mt-1.5 font-mono text-[15px] font-semibold">@jys-jinyongsung</dd>
+            </div>
+          </dl>
+
+          <!-- Career timeline -->
+          <div class="mt-10 pt-8 border-t border-line">
+            <div class="font-mono text-[11px] tracking-[.22em] uppercase text-muted">커리어 타임라인</div>
+            <ol class="mt-6 relative pl-6 border-l border-line space-y-7">
+              <li class="relative">
+                <span class="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-paper"></span>
+                <div class="flex items-baseline gap-3 flex-wrap">
+                  <span class="font-mono text-[12px] text-muted">2025 — Now</span>
+                  <span class="text-[16px] font-bold">AI BRIDGE 창업 · 대표</span>
+                </div>
+                <p class="mt-1.5 text-[14px] text-ink/70 leading-relaxed">AI 교육·AX 컨설팅·자동화 솔루션 사업</p>
+              </li>
+              <li class="relative">
+                <span class="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full bg-ink ring-4 ring-paper"></span>
+                <div class="flex items-baseline gap-3 flex-wrap">
+                  <span class="font-mono text-[12px] text-muted">5 Years</span>
+                  <span class="text-[16px] font-bold">스타트업 사업운영</span>
+                </div>
+                <p class="mt-1.5 text-[14px] text-ink/70 leading-relaxed">서비스 기획·운영, 그로스, 조직 운영</p>
+              </li>
+              <li class="relative">
+                <span class="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full bg-ink ring-4 ring-paper"></span>
+                <div class="flex items-baseline gap-3 flex-wrap">
+                  <span class="font-mono text-[12px] text-muted">4 Years</span>
+                  <span class="text-[16px] font-bold">대기업 사업기획</span>
+                </div>
+                <p class="mt-1.5 text-[14px] text-ink/70 leading-relaxed">신사업 발굴·전략 수립, 사업성 분석</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  04. EXPERTISE
+===================================================================== -->
+<section id="expertise" data-screen-label="03 Expertise" class="bg-ink text-white relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-40 [mask-image:radial-gradient(ellipse_at_30%_0%,#000_20%,transparent_70%)]"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10 section">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-white/55">
+          <span class="inline-block w-8 h-px bg-white/50"></span>
+          02 — Expertise
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(34px,4.4vw,56px)]">
+          알려주는 것이 아니라,<br/>
+          <span class="text-accent">쓰게</span> 만듭니다.
+        </h2>
+      </div>
+      <p class="reveal reveal-d2 lg:col-span-5 text-[15.5px] leading-[1.85] text-white/65">
+        실무에서 바로 적용 가능한 AI 활용법을 다룹니다.
+        Claude · ChatGPT를 중심으로, 직군과 업무 흐름에 맞춘
+        커리큘럼을 직접 설계하고 강의합니다.
+      </p>
+    </div>
+
+    <!-- Expertise grid -->
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-3xl overflow-hidden border border-white/10">
+      <!-- 01 -->
+      <article class="reveal reveal-d1 bg-ink-800 p-7 flex flex-col">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-xl bg-accent/15 text-accent grid place-items-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 6h12l4 4v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M8 10h6M8 14h8M8 18h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="font-mono text-[11px] text-white/35">01</span>
+        </div>
+        <h3 class="mt-7 text-[18px] font-bold leading-snug">Claude 실무 활용</h3>
+        <p class="mt-3 text-[13.5px] leading-[1.75] text-white/65 flex-1">
+          프롬프트 설계, 문서·기획·코드 협업, Claude Code 기반 자동화까지
+          가장 활발히 다루는 핵심 도구.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-1.5">
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">Prompting</span>
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">Claude Code</span>
+        </div>
+      </article>
+
+      <!-- 02 -->
+      <article class="reveal reveal-d2 bg-ink-800 p-7 flex flex-col">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-xl bg-accent/15 text-accent grid place-items-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 4h9l3 3v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M9 12.5l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="font-mono text-[11px] text-white/35">02</span>
+        </div>
+        <h3 class="mt-7 text-[18px] font-bold leading-snug">AX 컨설팅</h3>
+        <p class="mt-3 text-[13.5px] leading-[1.75] text-white/65 flex-1">
+          조직의 업무를 AI 전제로 다시 설계.
+          전략 수립부터 PoC, 도입·확산 로드맵까지.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-1.5">
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">Strategy</span>
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">PoC</span>
+        </div>
+      </article>
+
+      <!-- 03 -->
+      <article class="reveal reveal-d3 bg-ink-800 p-7 flex flex-col">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-xl bg-accent/15 text-accent grid place-items-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="6" cy="6" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="18" cy="6" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="12" cy="18" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M7.5 7.5 11 16M16.5 7.5 13 16M8 6h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="font-mono text-[11px] text-white/35">03</span>
+        </div>
+        <h3 class="mt-7 text-[18px] font-bold leading-snug">업무 자동화 · AI 에이전트</h3>
+        <p class="mt-3 text-[13.5px] leading-[1.75] text-white/65 flex-1">
+          반복 업무를 대신 처리하는 AI 에이전트,
+          마케팅·CS 자동화 시스템 직접 구축.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-1.5">
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">Agent</span>
+          <span class="px-2 py-0.5 rounded-full bg-white/8 text-[11px] text-white/70 font-mono">Automation</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Tools chips -->
+    <div class="reveal mt-12 flex flex-wrap items-center gap-3">
+      <span class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Toolset</span>
+      <span class="h-px flex-1 max-w-[120px] bg-white/15"></span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">Claude</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">Claude Code</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">ChatGPT</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">GPTs</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">n8n / Make</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">Channel.io</span>
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/10 text-[13px]">Notion · Slack</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  05. LECTURES — 기업 강의 이력 타임라인
+===================================================================== -->
+<section id="lectures" data-screen-label="04 Lectures" class="section bg-paper">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-muted">
+          <span class="inline-block w-8 h-px bg-ink"></span>
+          03 — Lectures
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(34px,4.4vw,56px)]">
+          기업의 강의실에<br/>
+          <span class="text-accent">직접</span> 섭니다.
+        </h2>
+      </div>
+      <p class="reveal reveal-d2 lg:col-span-5 text-[15.5px] leading-[1.85] text-ink/70">
+        대기업, 협회, 스타트업의 실무자를 대상으로
+        오프라인 특강과 기업 맞춤형 교육을 운영합니다.
+      </p>
+    </div>
+
+    <!-- Lecture rows -->
+    <div class="reveal mt-14 bg-white border border-line rounded-3xl overflow-hidden">
+      <!-- Header row -->
+      <div class="hidden md:grid grid-cols-[120px_1fr_1.4fr_120px_110px] gap-6 px-8 py-5 border-b border-line font-mono text-[11px] tracking-[.22em] uppercase text-muted">
+        <div>Year</div>
+        <div>Client</div>
+        <div>Topic</div>
+        <div>Format</div>
+        <div class="text-right">Status</div>
+      </div>
+
+      <!-- Row 1 -->
+      <article class="grid md:grid-cols-[120px_1fr_1.4fr_120px_110px] gap-2 md:gap-6 px-7 sm:px-8 py-7 border-b border-line">
+        <div class="font-mono text-[12.5px] text-muted">2026</div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden">Client</div>
+          <div class="text-[16px] font-bold tracking-tight">앨리스랩 <span class="text-muted font-normal">· Alice Lab</span></div>
+        </div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden mt-3">Topic</div>
+          <div class="text-[15px] font-semibold leading-snug">Claude Code 기초 활용 교육</div>
+          <p class="mt-1 text-[13px] text-muted leading-relaxed">개발자를 위한 Claude Code 실습 중심 커리큘럼</p>
+        </div>
+        <div class="md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-mist text-[12px] font-medium">
+            <span class="w-1 h-1 rounded-full bg-ink"></span>오프라인
+          </span>
+        </div>
+        <div class="md:text-right md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft text-accent text-[12px] font-semibold">완료</span>
+        </div>
+      </article>
+
+      <!-- Row 2 -->
+      <article class="grid md:grid-cols-[120px_1fr_1.4fr_120px_110px] gap-2 md:gap-6 px-7 sm:px-8 py-7 border-b border-line">
+        <div class="font-mono text-[12.5px] text-muted">2026</div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden">Client</div>
+          <div class="text-[16px] font-bold tracking-tight">대우건설 <span class="text-muted font-normal">· Daewoo E&amp;C</span></div>
+        </div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden mt-3">Topic</div>
+          <div class="text-[15px] font-semibold leading-snug">Claude 활용 디자인 워크플로우</div>
+          <p class="mt-1 text-[13px] text-muted leading-relaxed">디자인·기획 직군 대상 AI 협업 실무 특강</p>
+        </div>
+        <div class="md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-mist text-[12px] font-medium">
+            <span class="w-1 h-1 rounded-full bg-ink"></span>오프라인
+          </span>
+        </div>
+        <div class="md:text-right md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft text-accent text-[12px] font-semibold">완료</span>
+        </div>
+      </article>
+
+      <!-- Row 3 -->
+      <article class="grid md:grid-cols-[120px_1fr_1.4fr_120px_110px] gap-2 md:gap-6 px-7 sm:px-8 py-7 border-b border-line">
+        <div class="font-mono text-[12.5px] text-muted">2026</div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden">Client</div>
+          <div class="text-[16px] font-bold tracking-tight">한국부동산마케팅협회</div>
+        </div>
+        <div>
+          <div class="text-[12px] font-mono text-muted uppercase tracking-[.16em] md:hidden mt-3">Topic</div>
+          <div class="text-[15px] font-semibold leading-snug">Claude 기초 활용 특강</div>
+          <p class="mt-1 text-[13px] text-muted leading-relaxed">부동산 전문가 대상 AI 활용 기초 · 정기 운영</p>
+        </div>
+        <div class="md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-mist text-[12px] font-medium">
+            <span class="w-1 h-1 rounded-full bg-ink"></span>오프라인
+          </span>
+        </div>
+        <div class="md:text-right md:self-center">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft text-accent text-[12px] font-semibold">진행 중</span>
+        </div>
+      </article>
+
+      <!-- Closing note row -->
+      <div class="px-7 sm:px-8 py-5 bg-mist/60 text-[13.5px] text-muted flex items-center gap-3">
+        <span class="font-mono text-[11px] tracking-[.22em] uppercase text-ink/60">Note</span>
+        <span>그 외 기업 내부 워크숍 및 비공개 특강 다수 · 강의 자료는 의뢰 시 별도 제공</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  06. PROJECTS
+===================================================================== -->
+<section id="projects" data-screen-label="05 Projects" class="bg-mist">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 section">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-muted">
+          <span class="inline-block w-8 h-px bg-ink"></span>
+          04 — Projects
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(34px,4.4vw,56px)]">
+          가르치는 것을<br/>
+          <span class="text-accent">직접</span> 만듭니다.
+        </h2>
+      </div>
+      <p class="reveal reveal-d2 lg:col-span-5 text-[15.5px] leading-[1.85] text-ink/70">
+        강의로 끝내지 않습니다. 데이터 대시보드부터 AI 영상 제작 파이프라인까지,
+        실제 결과물을 만들어 그 위에서 강의합니다.
+      </p>
+    </div>
+
+    <!-- Project list — large rows with browser/video preview -->
+    <div class="mt-14 space-y-6">
+
+      <!-- Project 01 · 청약 대시보드 -->
+      <article class="reveal bg-white border border-line rounded-3xl overflow-hidden grid lg:grid-cols-12">
+        <div class="lg:col-span-7 relative bg-ink p-6 sm:p-8 overflow-hidden">
+          <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-30"></div>
+          <div aria-hidden="true" class="absolute -top-20 -right-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-30"
+               style="background: radial-gradient(closest-side, rgba(37,71,240,.5), transparent 70%);"></div>
+
+          <div class="relative browser">
+            <div class="bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="url">krema-practice.vercel.app</span>
+              <span class="w-10"></span>
+            </div>
+            <!-- Mock dashboard content -->
+            <div class="p-5 sm:p-6 aspect-[16/10] text-white">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="font-mono text-[10px] tracking-[.22em] uppercase text-white/45">KREMA Dashboard</div>
+                  <div class="mt-1 text-[15px] font-bold">전국 청약 현황</div>
+                </div>
+                <div class="flex gap-1.5">
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-accent/20 text-accent font-mono">2025.05</span>
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-white/8 text-white/70 font-mono">서울</span>
+                </div>
+              </div>
+              <!-- KPI tiles -->
+              <div class="mt-4 grid grid-cols-4 gap-2">
+                <div class="bg-white/5 rounded-lg p-2.5">
+                  <div class="text-[9px] text-white/45 font-mono">단지수</div>
+                  <div class="mt-0.5 font-num text-[16px] font-bold">38</div>
+                </div>
+                <div class="bg-white/5 rounded-lg p-2.5">
+                  <div class="text-[9px] text-white/45 font-mono">총 세대</div>
+                  <div class="mt-0.5 font-num text-[16px] font-bold">12,480</div>
+                </div>
+                <div class="bg-white/5 rounded-lg p-2.5">
+                  <div class="text-[9px] text-white/45 font-mono">평균 경쟁률</div>
+                  <div class="mt-0.5 font-num text-[16px] font-bold text-accent">28.4:1</div>
+                </div>
+                <div class="bg-white/5 rounded-lg p-2.5">
+                  <div class="text-[9px] text-white/45 font-mono">최고 경쟁률</div>
+                  <div class="mt-0.5 font-num text-[16px] font-bold">412:1</div>
+                </div>
+              </div>
+              <!-- Chart mock -->
+              <div class="mt-4 bg-white/5 rounded-lg p-3 h-[120px] relative">
+                <div class="text-[9px] text-white/45 font-mono">월별 청약 경쟁률 추이</div>
+                <svg viewBox="0 0 320 80" class="absolute left-3 right-3 bottom-2" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="cha" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#2547F0" stop-opacity=".55"/>
+                      <stop offset="1" stop-color="#2547F0" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 60 L 32 50 L 64 55 L 96 42 L 128 35 L 160 38 L 192 25 L 224 30 L 256 18 L 288 20 L 320 12 L 320 80 L 0 80 Z" fill="url(#cha)"/>
+                  <path d="M0 60 L 32 50 L 64 55 L 96 42 L 128 35 L 160 38 L 192 25 L 224 30 L 256 18 L 288 20 L 320 12" fill="none" stroke="#2547F0" stroke-width="1.6"/>
+                </svg>
+              </div>
+              <!-- Mini table -->
+              <div class="mt-3 grid grid-cols-3 gap-2 text-[10px]">
+                <div class="bg-white/5 rounded p-2 flex items-center justify-between">
+                  <span>강남 A</span><span class="text-accent font-mono">412:1</span>
+                </div>
+                <div class="bg-white/5 rounded p-2 flex items-center justify-between">
+                  <span>마포 B</span><span class="font-mono">128:1</span>
+                </div>
+                <div class="bg-white/5 rounded p-2 flex items-center justify-between">
+                  <span>성수 C</span><span class="font-mono">96:1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 p-7 sm:p-10 flex flex-col">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10.5px] tracking-[.22em] uppercase text-accent">Data Dashboard</span>
+            <span class="font-mono text-[11px] text-muted">01 / 03</span>
+          </div>
+          <h3 class="mt-5 text-[24px] font-extrabold tracking-tight leading-tight">청약 대시보드</h3>
+          <p class="mt-2 font-mono text-[12.5px] text-muted">한국부동산마케팅협회 교육 자료용 실습 프로젝트</p>
+          <p class="mt-5 text-[14.5px] leading-[1.8] text-ink/75 flex-1">
+            전국 청약 현황을 한 화면에서 비교·탐색할 수 있는
+            데이터 대시보드. Claude로 데이터 정제·시각화 코드를 작성하고
+            Vercel에 배포한 실습 결과물.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-1.5">
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Next.js</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Claude</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Vercel</span>
+          </div>
+          <a href="https://krema-practice.vercel.app/" target="_blank" rel="noopener noreferrer"
+             class="mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-accent hover:underline">
+            라이브 데모 보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 02 · VOC 대시보드 -->
+      <article class="reveal bg-white border border-line rounded-3xl overflow-hidden grid lg:grid-cols-12">
+        <div class="lg:col-span-5 p-7 sm:p-10 flex flex-col order-2 lg:order-1">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10.5px] tracking-[.22em] uppercase text-accent">VOC · AI Analysis</span>
+            <span class="font-mono text-[11px] text-muted">02 / 03</span>
+          </div>
+          <h3 class="mt-5 text-[24px] font-extrabold tracking-tight leading-tight">VOC 메일 자동 분류 대시보드</h3>
+          <p class="mt-2 font-mono text-[12.5px] text-muted">고객 응대 메일을 AI로 분류·우선순위화</p>
+          <p class="mt-5 text-[14.5px] leading-[1.8] text-ink/75 flex-1">
+            쏟아지는 고객 메일을 카테고리·감정·긴급도 기준으로 자동 분류하고,
+            팀 단위로 처리 흐름을 한눈에 보여주는 대시보드.
+            CS 자동화 컨설팅 사례를 기반으로 제작한 데모.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-1.5">
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Claude API</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">React</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">CS Agent</span>
+          </div>
+          <a href="https://mail-dashboard-zeta.vercel.app/" target="_blank" rel="noopener noreferrer"
+             class="mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-accent hover:underline">
+            라이브 데모 보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="lg:col-span-7 relative bg-ink p-6 sm:p-8 overflow-hidden order-1 lg:order-2">
+          <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-30"></div>
+          <div aria-hidden="true" class="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-30"
+               style="background: radial-gradient(closest-side, rgba(37,71,240,.5), transparent 70%);"></div>
+
+          <div class="relative browser">
+            <div class="bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="url">mail-dashboard-zeta.vercel.app</span>
+              <span class="w-10"></span>
+            </div>
+            <div class="p-5 sm:p-6 aspect-[16/10] text-white grid grid-cols-[180px_1fr] gap-4">
+              <!-- Sidebar -->
+              <aside class="bg-white/5 rounded-lg p-3 hidden sm:block">
+                <div class="font-mono text-[10px] tracking-[.22em] uppercase text-white/45">Inbox</div>
+                <ul class="mt-3 space-y-1.5 text-[11.5px]">
+                  <li class="flex items-center justify-between bg-accent/15 text-accent rounded px-2 py-1.5">전체 <span class="font-mono">238</span></li>
+                  <li class="flex items-center justify-between text-white/75 px-2 py-1.5">제품 문의 <span class="font-mono text-white/55">86</span></li>
+                  <li class="flex items-center justify-between text-white/75 px-2 py-1.5">불만 접수 <span class="font-mono text-red-400/80">42</span></li>
+                  <li class="flex items-center justify-between text-white/75 px-2 py-1.5">환불 요청 <span class="font-mono text-white/55">31</span></li>
+                  <li class="flex items-center justify-between text-white/75 px-2 py-1.5">단순 회신 <span class="font-mono text-white/55">79</span></li>
+                </ul>
+              </aside>
+              <!-- Main -->
+              <div class="bg-white/5 rounded-lg p-3">
+                <div class="flex items-center justify-between">
+                  <div class="font-mono text-[10px] tracking-[.22em] uppercase text-white/45">AI Triage Queue</div>
+                  <span class="text-[10px] font-mono text-accent">●  Auto-sorted by Claude</span>
+                </div>
+                <ul class="mt-3 space-y-1.5">
+                  <li class="grid grid-cols-[60px_1fr_60px] gap-2 items-center bg-white/5 rounded px-2 py-2 text-[11px]">
+                    <span class="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 text-center">URGENT</span>
+                    <span class="truncate text-white/85">배송 누락 — 어제부터 연락 안 됨</span>
+                    <span class="font-mono text-white/40 text-right">12m</span>
+                  </li>
+                  <li class="grid grid-cols-[60px_1fr_60px] gap-2 items-center bg-white/5 rounded px-2 py-2 text-[11px]">
+                    <span class="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-200 text-center">HIGH</span>
+                    <span class="truncate text-white/85">환불 절차 문의 (3차)</span>
+                    <span class="font-mono text-white/40 text-right">38m</span>
+                  </li>
+                  <li class="grid grid-cols-[60px_1fr_60px] gap-2 items-center bg-white/5 rounded px-2 py-2 text-[11px]">
+                    <span class="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-emerald-400/20 text-emerald-200 text-center">NORMAL</span>
+                    <span class="truncate text-white/85">선물 포장 옵션 있나요?</span>
+                    <span class="font-mono text-white/40 text-right">1h</span>
+                  </li>
+                  <li class="grid grid-cols-[60px_1fr_60px] gap-2 items-center bg-white/5 rounded px-2 py-2 text-[11px]">
+                    <span class="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-emerald-400/20 text-emerald-200 text-center">NORMAL</span>
+                    <span class="truncate text-white/85">교환 진행 상태 안내 부탁드립니다</span>
+                    <span class="font-mono text-white/40 text-right">2h</span>
+                  </li>
+                  <li class="grid grid-cols-[60px_1fr_60px] gap-2 items-center bg-white/5 rounded px-2 py-2 text-[11px]">
+                    <span class="font-mono text-[9.5px] px-1.5 py-0.5 rounded bg-white/10 text-white/65 text-center">AUTO</span>
+                    <span class="truncate text-white/85">감사 인사 — AI 자동 회신 완료</span>
+                    <span class="font-mono text-white/40 text-right">3h</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 03 · AI 영상 제작 -->
+      <article class="reveal bg-white border border-line rounded-3xl overflow-hidden grid lg:grid-cols-12">
+        <div class="lg:col-span-7 relative bg-ink p-6 sm:p-8 overflow-hidden">
+          <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-30"></div>
+          <div aria-hidden="true" class="absolute -bottom-20 -right-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-30"
+               style="background: radial-gradient(closest-side, rgba(37,71,240,.5), transparent 70%);"></div>
+
+          <!-- Video player mock -->
+          <div class="relative browser">
+            <div class="bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="url">drive.google.com / AI Video Sample</span>
+              <span class="w-10"></span>
+            </div>
+            <div class="relative aspect-[16/10] bg-gradient-to-br from-[#1a1a22] via-[#15151a] to-[#0b0b0e]">
+              <!-- abstract spectrum bars suggesting video content -->
+              <div class="absolute inset-0 grid place-items-center">
+                <div class="flex items-end gap-1.5 h-24" aria-hidden="true">
+                  <span class="w-2 h-8 rounded-full bg-accent/40"></span>
+                  <span class="w-2 h-16 rounded-full bg-accent/60"></span>
+                  <span class="w-2 h-12 rounded-full bg-accent/50"></span>
+                  <span class="w-2 h-24 rounded-full bg-accent"></span>
+                  <span class="w-2 h-20 rounded-full bg-accent/80"></span>
+                  <span class="w-2 h-14 rounded-full bg-accent/50"></span>
+                  <span class="w-2 h-20 rounded-full bg-accent/70"></span>
+                  <span class="w-2 h-10 rounded-full bg-accent/40"></span>
+                  <span class="w-2 h-16 rounded-full bg-accent/60"></span>
+                  <span class="w-2 h-8 rounded-full bg-accent/40"></span>
+                </div>
+              </div>
+              <!-- Play overlay -->
+              <div class="absolute inset-0 grid place-items-center">
+                <span class="w-16 h-16 rounded-full bg-white text-ink grid place-items-center shadow-2xl">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7L8 5Z"/>
+                  </svg>
+                </span>
+              </div>
+              <!-- Player chrome -->
+              <div class="absolute left-4 right-4 bottom-4">
+                <div class="h-1 bg-white/15 rounded-full overflow-hidden">
+                  <div class="h-full w-[36%] bg-accent rounded-full"></div>
+                </div>
+                <div class="mt-2 flex items-center justify-between font-mono text-[10px] text-white/55">
+                  <span>00:42</span>
+                  <span>AI Generated Sample</span>
+                  <span>01:55</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 p-7 sm:p-10 flex flex-col">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10.5px] tracking-[.22em] uppercase text-accent">AI Video Production</span>
+            <span class="font-mono text-[11px] text-muted">03 / 03</span>
+          </div>
+          <h3 class="mt-5 text-[24px] font-extrabold tracking-tight leading-tight">AI 영상 제작 샘플</h3>
+          <p class="mt-2 font-mono text-[12.5px] text-muted">생성형 AI 기반 콘텐츠 제작 파이프라인</p>
+          <p class="mt-5 text-[14.5px] leading-[1.8] text-ink/75 flex-1">
+            대본 작성·이미지 생성·음성 합성·편집을 하나의 흐름으로 묶어
+            만든 AI 영상 제작 데모. 마케팅 자동화 컨설팅에서
+            클라이언트에게 시연하는 워크플로우 샘플.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-1.5">
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Claude</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">Image Gen</span>
+            <span class="px-2 py-1 rounded-full bg-mist text-[11.5px] font-mono">TTS · Edit</span>
+          </div>
+          <a href="https://drive.google.com/file/d/1PXnduKbS5jprw10sApuuXbk7xlxVui1a/view?usp=drive_link"
+             target="_blank" rel="noopener noreferrer"
+             class="mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-accent hover:underline">
+            샘플 영상 보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  07. CHANNEL — YouTube
+===================================================================== -->
+<section id="channel" data-screen-label="06 Channel" class="section bg-paper">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-muted">
+          <span class="inline-block w-8 h-px bg-ink"></span>
+          05 — Channel
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(34px,4.4vw,56px)]">
+          매주, <span class="text-accent">실무</span>에 쓰는<br/>
+          AI를 이야기합니다.
+        </h2>
+      </div>
+      <p class="reveal reveal-d2 lg:col-span-5 text-[15.5px] leading-[1.85] text-ink/70">
+        유튜브 〈진용성 jys〉에서 Claude·ChatGPT·AI 에이전트 실전을
+        꾸준히 공유하고 있습니다.
+      </p>
+    </div>
+
+    <a href="https://www.youtube.com/@jys-jinyongsung" target="_blank" rel="noopener noreferrer"
+       class="reveal mt-14 group block bg-white border border-line rounded-3xl overflow-hidden hover:border-ink/20 transition-colors">
+      <div class="grid lg:grid-cols-12">
+        <div class="lg:col-span-7 relative bg-ink p-8 sm:p-10 overflow-hidden">
+          <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-40"></div>
+          <div class="relative bg-ink-800 rounded-2xl overflow-hidden border border-white/10">
+            <div class="flex items-center justify-between px-4 h-9 border-b border-white/8">
+              <div class="flex gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+              </div>
+              <div class="font-mono text-[11px] text-white/40">youtube.com / @jys-jinyongsung</div>
+              <div class="w-10"></div>
+            </div>
+            <div class="relative aspect-[16/9] bg-ink overflow-hidden">
+              <img src="assets/youtube-channel.png" alt="진용성 jys YouTube 채널" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"/>
+              <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent"></div>
+              <span class="absolute inset-0 grid place-items-center">
+                <span class="w-16 h-16 rounded-full bg-white/95 text-ink grid place-items-center shadow-2xl transition-transform group-hover:scale-110">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7L8 5Z"/>
+                  </svg>
+                </span>
+              </span>
+              <span class="absolute bottom-3 right-3 font-mono text-[11px] text-white/85 bg-ink-800/80 backdrop-blur px-2 py-0.5 rounded">@jys-jinyongsung</span>
+            </div>
+            <div class="px-5 py-4 flex items-center gap-3 border-t border-white/8">
+              <span class="w-9 h-9 rounded-full bg-accent grid place-items-center text-white font-bold">진</span>
+              <div class="leading-tight">
+                <div class="text-[14px] font-semibold text-white">진용성 jys</div>
+                <div class="text-[12px] text-white/55 font-mono">@jys-jinyongsung · 7,100+ subscribers</div>
+              </div>
+              <span class="ml-auto inline-flex items-center gap-1.5 text-[12px] text-white/50 font-mono">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>LIVE 콘텐츠 업데이트 중
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 p-8 sm:p-10 flex flex-col">
+          <div class="flex items-center gap-2 text-red-600">
+            <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true">
+              <rect width="28" height="20" rx="5" fill="currentColor"/>
+              <path d="M11.5 6 18 10l-6.5 4V6Z" fill="white"/>
+            </svg>
+            <span class="font-mono text-[11px] tracking-[.22em] uppercase text-muted">YouTube</span>
+          </div>
+          <h3 class="mt-5 text-[32px] font-extrabold tracking-tight leading-tight">진용성 jys</h3>
+          <p class="mt-1 font-mono text-[13.5px] text-muted">@jys-jinyongsung</p>
+          <p class="mt-6 text-[15px] leading-[1.85] text-ink/75">
+            Claude를 비롯한 생성형 AI를 실제 업무에 적용하는 방법,
+            AI 에이전트·자동화 노하우를 매주 공유합니다.
+          </p>
+          <div class="mt-8 grid grid-cols-2 gap-px bg-line rounded-2xl overflow-hidden border border-line">
+            <div class="bg-white p-5">
+              <div class="font-mono text-[10.5px] tracking-[.22em] uppercase text-muted">Subscribers</div>
+              <div class="mt-1.5 font-num text-[28px] font-extrabold tracking-tight">7,100<span class="text-accent">+</span></div>
+            </div>
+            <div class="bg-white p-5">
+              <div class="font-mono text-[10.5px] tracking-[.22em] uppercase text-muted">Topic</div>
+              <div class="mt-1.5 text-[15px] font-semibold leading-snug">Claude · AI 에이전트<br/>업무 자동화</div>
+            </div>
+          </div>
+          <div class="mt-8 pt-6 border-t border-line flex items-center justify-between text-[13.5px]">
+            <span class="text-muted">새 영상은 매주 업로드</span>
+            <span class="inline-flex items-center gap-1.5 text-accent font-semibold">
+              채널 방문하기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  08. CONTACT
+===================================================================== -->
+<section id="contact" data-screen-label="07 Contact" class="bg-ink text-white relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 bg-grid-dark opacity-30"></div>
+  <div aria-hidden="true" class="absolute -bottom-60 -left-40 w-[680px] h-[680px] rounded-full blur-3xl opacity-40"
+       style="background: radial-gradient(closest-side, rgba(37,71,240,.55), transparent 70%);"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10 section">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="lg:col-span-7">
+        <div class="reveal flex items-center gap-3 font-mono text-[11.5px] tracking-[.22em] uppercase text-white/55">
+          <span class="inline-block w-8 h-px bg-white/50"></span>
+          06 — Contact
+        </div>
+        <h2 class="reveal reveal-d1 display mt-5 text-[clamp(40px,5.5vw,84px)] text-white">
+          강의 · 컨설팅<br/>
+          <span class="text-accent">언제든</span><br/>
+          이야기해요.
+        </h2>
+        <p class="reveal reveal-d2 mt-8 max-w-xl text-[16px] leading-[1.85] text-white/70">
+          기업 강의, AX 컨설팅, AI 에이전트 도입까지
+          어떤 단계의 문의든 환영합니다. 1영업일 이내 회신드립니다.
+        </p>
+
+        <div class="reveal reveal-d3 mt-10">
+          <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Email</div>
+          <div class="mt-3 font-mono text-[clamp(22px,3.4vw,40px)] font-semibold tracking-tight text-white break-all">
+            leo.jin@aibridge.co.kr
+          </div>
+          <p class="mt-4 text-[14px] text-white/55">※ 모든 문의는 이메일로만 접수됩니다. 평일 기준 1영업일 이내 회신드립니다.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="reveal reveal-d2 bg-white/[.04] border border-white/10 backdrop-blur rounded-3xl p-7 sm:p-9">
+          <div class="flex items-center justify-between">
+            <span class="text-[18px] font-bold tracking-tight text-white">진용성 <span class="text-white/45 font-normal text-[14px]">· Jin Yongsung</span></span>
+            <span class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">Profile</span>
+          </div>
+
+          <ul class="mt-7 space-y-5 text-[15px]">
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">Email</span>
+              <span class="font-mono font-semibold text-white break-all">leo.jin@aibridge.co.kr</span>
+            </li>
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">Company</span>
+              <span class="font-semibold text-white">AI BRIDGE</span>
+            </li>
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">Website</span>
+              <span class="font-mono font-semibold text-white">aibridge.co.kr</span>
+            </li>
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">YouTube</span>
+              <span class="font-mono font-semibold text-white">@jys-jinyongsung</span>
+            </li>
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">Location</span>
+              <span class="font-semibold text-white">대한민국 서울</span>
+            </li>
+            <li class="grid grid-cols-[112px_1fr] gap-4 items-baseline">
+              <span class="font-mono text-[11px] tracking-[.2em] uppercase text-white/45">Hours</span>
+              <span class="text-white/85">평일 09:00 — 18:00 <span class="text-white/50">· KST</span></span>
+            </li>
+          </ul>
+
+          <div class="mt-10 pt-7 border-t border-white/10">
+            <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/45">문의 가능한 주제</div>
+            <div class="mt-4 flex flex-wrap gap-2 text-[12.5px]">
+              <span class="px-3 py-1.5 rounded-full bg-white/8 border border-white/10">기업 AI 활용 강의</span>
+              <span class="px-3 py-1.5 rounded-full bg-white/8 border border-white/10">Claude · ChatGPT 실무 교육</span>
+              <span class="px-3 py-1.5 rounded-full bg-white/8 border border-white/10">AX 컨설팅</span>
+              <span class="px-3 py-1.5 rounded-full bg-white/8 border border-white/10">AI 에이전트 구축</span>
+              <span class="px-3 py-1.5 rounded-full bg-white/8 border border-white/10">자동화 시스템 도입</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+  FOOTER
+===================================================================== -->
+<footer class="bg-ink-800 text-white/75">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-14 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="text-[22px] font-extrabold tracking-tight text-white">진용성<span class="text-accent">.</span></div>
+      <p class="mt-5 text-[14.5px] leading-[1.85] text-white/55 max-w-md">
+        AI 활용 교육 강사 · AX 컨설턴트.<br/>
+        기업과 AI를 잇는 다리, AI BRIDGE의 대표.
+      </p>
+    </div>
+    <div class="md:col-span-3">
+      <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/40">Menu</div>
+      <ul class="mt-5 space-y-3 text-[14px]">
+        <li><a href="#about"      class="hover:text-white">소개</a></li>
+        <li><a href="#expertise"  class="hover:text-white">전문 분야</a></li>
+        <li><a href="#lectures"   class="hover:text-white">강의</a></li>
+        <li><a href="#projects"   class="hover:text-white">프로젝트</a></li>
+        <li><a href="#channel"    class="hover:text-white">채널</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-4">
+      <div class="font-mono text-[11px] tracking-[.22em] uppercase text-white/40">Contact</div>
+      <ul class="mt-5 space-y-2.5 text-[14px] text-white/85">
+        <li>이름  ·  진용성 (Jin Yongsung)</li>
+        <li>소속  ·  AI BRIDGE</li>
+        <li>이메일  ·  <span class="font-mono">leo.jin@aibridge.co.kr</span></li>
+        <li>유튜브  ·  <span class="font-mono">@jys-jinyongsung</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/8">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12.5px] text-white/45">
+      <div>© 2026 Jin Yongsung · AI BRIDGE. All rights reserved.</div>
+      <div class="flex items-center gap-2 font-mono tracking-[.16em] uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+        Built with Claude · Seoul
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Reveal-on-scroll (IntersectionObserver only) -->
+<script>
+  (function(){
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
